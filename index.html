@@ -6,40 +6,51 @@
 	<title>VueJS</title>
 	<link rel="stylesheet" href="">
 	<script src="vue.js"></script>
+	<style type="text/css">
+			.demo {
+					width: 100px;
+					height: 100px;
+					background-color: gray;
+					display: inline-block;
+					margin: : 10px;
+			}
+			.red {
+					background-color: red;
+			}
+			.green {
+					background-color: green;
+			}
+			.blue {
+					background-color: blue;
+			}
+	</style>
+
 </head>
 <body>
-		<div id="exercise">
-				<!--- //show result of not there yet as long as value is not equal to 37, you can change value with the buttons, print done once you're done. -->
-			<div>
-				<p>Current Value: {{ value }}</p>
-				<button @click="value += 5">Add 5</button>
-				<button @click="value += 1">Add 1</button>
-				<p>{{ result }}</p>
+		<div id="app">
+			<div
+				class="demo"
+				@click="attachRed = !attachRed"
+				:class="divClasses">
 			</div>
-				<!-- //watch for changes in the result and reset the value after 5 seconds (hint: setTimeout(...,5000)) -->
-			<div>
-				<input type="text">
-				<p>{{ value }}</p>
+			<div
+				class="demo"
+				:class="{red: attachRed}">
 			</div>
+			<div class="demo"></div>
 		</div>
 	<script>
-	// You may of course also outsource this script code into a separate file (e.g. app.js) and simply import this file here
 		new Vue({
-			el: '#exercise',
+			el: '#app',
 			data: {
-				value: 0
+				attachRed: false
 			},
 			computed: {
-				result: function() {
-					return this.value != 37 ? 'Not there yet' : 'Done!!';
-				  }
-			  },
-				watch: {
-					result: function() {
-						var vm = this;
-						setTimeout(function() {
-							vm.value = 0;
-						}, 5000);
+				divClasses: function() {
+					return {
+						red: this.attachRed,
+						blue: !this.attachRed
+					};
 				}
 			}
 	})
